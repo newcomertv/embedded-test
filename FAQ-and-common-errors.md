@@ -26,3 +26,12 @@ println!("cargo::rustc-link-arg-tests=-Tembedded-test.x");
 ```
 
 You can also add `rustflags = [ "-C", "link-arg=-Tembedded-test.x" ]` to your `.cargo/config.toml` file. But then you need to move `embedded-test` from `[dev-dependencies]` to `[dependencies]` in your `Cargo.toml`.
+
+## probe-rs exits directly after flashing (semihosting...)
+
+Make sure you're using at least probe-rs 0.24.0. Older versions do not support embedded-test yet.
+
+## probe-rs complains about unexpected arguments
+
+Make sure you're using at least probe-rs 0.24.0. Older versions do not support embedded-test yet.  
+Otherwise, please open an issue including the commandline that was used to invoke probe-rs.
