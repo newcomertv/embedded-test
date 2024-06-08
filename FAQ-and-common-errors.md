@@ -27,6 +27,10 @@ println!("cargo::rustc-link-arg-tests=-Tembedded-test.x");
 
 You can also add `rustflags = [ "-C", "link-arg=-Tembedded-test.x" ]` to your `.cargo/config.toml` file. But then you need to move `embedded-test` from `[dev-dependencies]` to `[dependencies]` in your `Cargo.toml`.
 
+## `rust-lld: error: duplicate symbol: _SEGGER_RTT`
+
+You probably have the `init-log` feature activated on `embedded-test` while at the same time using a crate like `defmt-rtt` or `rtt-log`. You need to either setup the logger yourselve (with a crate of your choice) or let embedded-test do it (`init-log` feature)
+
 ## probe-rs exits directly after flashing (semihosting...)
 
 Make sure you're using at least probe-rs 0.24.0. Older versions do not support embedded-test yet.
