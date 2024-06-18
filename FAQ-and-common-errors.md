@@ -4,7 +4,10 @@ Most common errors:
 
 ## `error[E0463]: can't find crate for test`
 
-This can happen if you invoke `cargo test` without any additional arguments. Apparently `cargo test` wants to also test the binaries... 
+This can happen if you forget to add `harness = false` to your `Cargo.toml` for each test.
+
+
+Furthermore, this error can happen if you invoke `cargo test` without any additional arguments. Apparently `cargo test` wants to also test the binaries... 
 
 Adding the following to `Cargo.toml` helps as a workaround.
 
