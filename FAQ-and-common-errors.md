@@ -42,3 +42,21 @@ Make sure you're using at least probe-rs 0.24.0. Older versions do not support e
 
 Make sure you're using at least probe-rs 0.24.0. Older versions do not support embedded-test yet.  
 Otherwise, please open an issue including the commandline that was used to invoke probe-rs.
+
+## probe-rs fails to link when using `embedded-test` with `defmt`
+
+```log
+  = note: rust-lld: error: undefined symbol: _defmt_release
+          >>> referenced by mod.rs:71
+          ...
+```
+
+If only your test builds fail but your main application builds fine, you probably have some linker scripts that are not linked for the tests but are linked for the main application.
+
+Check your `build.rs` for `println!("cargo:rustc-link-arg-bins=-Tdefmt.x");` or some other dependency which might be missing.
+Add `println!("cargo:rustc-link-arg-tests=-Tdefmt.x");` or some other dependency which might be missing. to your `build.rs`.
+
+## probe-rs fails to link when using `embedded-test` with `defmt-rtt`
+
+If your using `defmt-rtt` rather than `rtt-target` you will have to use `defmt-rtt` within your test code.
+This can be done with `use defmt_rtt as _;` at the top of your test file.
